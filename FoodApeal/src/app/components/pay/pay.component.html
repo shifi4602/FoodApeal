@@ -1,0 +1,44 @@
+<div class="continer">
+    <p-card class="pay-card">
+        <ng-template #title>
+            <div class="title">Payment</div>
+        </ng-template>
+
+        <div class="fields">
+            <label>Card number</label>
+            <input pInputText type="text" [(ngModel)]="cardNumber" maxlength="19" placeholder="1234 5678 9012 3456" />
+
+            <label>Expiry Month</label>
+            <p-dropdown [(ngModel)]="expiryMonth" [options]="months" placeholder="Month"
+                styleClass="w-100"></p-dropdown>
+
+            <label>Expiry Year</label>
+            <p-dropdown [(ngModel)]="expiryYear" [options]="years" placeholder="Year" styleClass="w-100"></p-dropdown>
+
+            <label>CVV</label>
+            <input pInputText type="password" [(ngModel)]="cvv" maxlength="3" placeholder="123" class="tb" />
+
+            <label>Street Address</label>
+            <input pInputText type="text" [(ngModel)]="streetAddress" placeholder="Enter your street address"
+                class="tb" />
+
+            <label>City</label>
+            <p-dropdown [(ngModel)]="city" [options]="cities" placeholder="Select a city" [showClear]="true"
+                styleClass="w-100"></p-dropdown>
+
+            <label>Postal Code</label>
+            <input pInputText type="text" [(ngModel)]="postalCode" placeholder="Enter postal code" class="tb" />
+        </div>
+
+        <div class="total-row">
+            <div class="total-label">Total</div>
+            <div class="total-value">{{ total | currency:'ILS':'symbol':'1.2-2' }}</div>
+        </div>
+
+        <div class="actions">
+            <button pButton type="button" label="Pay" class="p-button-success" (click)="pay()"></button>
+            <a routerLink="/basket"><button pButton type="button" label="בחזרה לסל"
+                    class="p-button-secondary"></button></a>
+        </div>
+    </p-card>
+</div>

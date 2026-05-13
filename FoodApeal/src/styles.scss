@@ -1,0 +1,41 @@
+//@import "primeicons/primeicons.css";
+
+/* Override PrimeNG "success" (green) buttons to use project color and 3px radius */
+.p-button.p-button-success,
+.p-button-success {
+	background-color: #b7a27a !important;
+	border-color: #b7a27a !important;
+	color: #ffffff !important;
+	border-radius: 3px !important;
+	box-shadow: none !important;
+}
+
+/* Outlined success buttons: keep transparent background but use the same accent color */
+.p-button.p-button-success.p-button-outlined,
+.p-button.p-button-outlined.p-button-success {
+	background-color: transparent !important;
+	color: #b7a27a !important;
+	border-color: #b7a27a !important;
+	border-radius: 3px !important;
+}
+
+/* Small/large button variants should inherit the same radius */
+.p-button.p-button-success .p-button,
+.p-button-sm.p-button-success,
+.p-button-lg.p-button-success {
+	border-radius: 3px !important;
+}
+
+/* More specific overrides for component-scoped selectors that set their own button backgrounds */
+.cart .p-button,
+.buttons .p-button,
+.product .p-button,
+.add-to-cart,
+.buy-now {
+	background-color: #b7a27a !important;
+	border-color: #b7a27a !important;
+	color: #ffffff !important;
+	border-radius: 3px !important;
+	box-shadow: none !important;
+}
+

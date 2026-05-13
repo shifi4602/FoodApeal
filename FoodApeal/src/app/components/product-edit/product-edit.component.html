@@ -1,0 +1,14 @@
+<div *ngIf="product; else notFound">
+    <app-product-form [addOrEditVal]="editMode" [productToEdit]="product" (saved)="onSaved()"></app-product-form>
+</div>
+
+<ng-template #notFound>
+    <div class="container">
+        <section class="not-found" dir="rtl">
+            <div class="not-found-card">
+                <h1>מוצר לא נמצא</h1>
+                <p>המוצר שחיפשת אינו קיים במערכת</p>
+            </div>
+        </section>
+    </div>
+</ng-template>

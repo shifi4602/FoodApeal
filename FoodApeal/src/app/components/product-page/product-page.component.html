@@ -1,0 +1,57 @@
+<p-image [src]="'product?.imageUrl'" [preview]="true" alt="Image" width="350">
+    <ng-template #indicator>
+        <i class="pi pi-search"></i>
+    </ng-template>
+    <ng-template #image>
+        <img [src]="'product?.imageUrl'" alt="image" width="350" />
+    </ng-template>
+    <ng-template #preview let-style="style" let-previewCallback="previewCallback">
+        <img [src]="'product?.imageUrl'" alt="image" [style]="style" (click)="previewCallback()" />
+    </ng-template>
+</p-image>
+
+
+<div class="product">
+    <div class="product-image-wrapper">
+        <p-image [src]="product?.imageUrl" [preview]="true" alt="Image" width="350">
+            <ng-template #indicator>
+                <i class="pi pi-search"></i>
+            </ng-template>
+            <ng-template #image>
+                <img [src]="product?.imageUrl" alt="image" width="250" />
+            </ng-template>
+            <ng-template #preview let-style="style" let-previewCallback="previewCallback">
+                <img [src]="product?.imageUrl" alt="image" [style]="style" (click)="previewCallback()" width="350"
+                    style="background-color: white;" />
+            </ng-template>
+        </p-image>
+    </div>
+
+    <div class="product-details-wrapper">
+        <p-card class="product-card">
+            <ng-template #title>
+                <div class="name">{{product?.Product_name}}</div>
+            </ng-template>
+            <ng-template #subtitle>
+                <div class="price"> {{product?.price| currency:'ILS':'symbol':'1.2-2' }}</div>
+            </ng-template>
+            <div class="description">{{product?.description}}</div>
+            <div class="quantity-wrapper">
+                <span class="quantity-label">Quantity:</span>
+                <p-inputnumber [(ngModel)]="quantity" [showButtons]="true" buttonLayout="horizontal" [min]="1" [max]="99"
+                    inputId="vertical" [inputStyle]="{ width: '3rem', 'text-align': 'center' }" class="input-number">
+                    <ng-template #incrementbuttonicon>
+                        <span class="pi pi-plus"></span>
+                    </ng-template>
+                    <ng-template #decrementbuttonicon>
+                        <span class="pi pi-minus"></span>
+                    </ng-template>
+                </p-inputnumber>
+            </div>
+            <a routerLink="/basket">
+                <p-button label="Add To Cart" icon="pi pi-cart-arrow-down" iconPos="right" size="large" class="cart" (onClick)="addToBasket(product?.Products_id!)"/>
+            </a >
+        </p-card>
+    </div>
+</div>
+

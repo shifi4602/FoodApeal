@@ -1,0 +1,57 @@
+.try{
+  padding-top: 0;
+}
+
+.basket p-card {
+  margin-bottom: 1rem;
+}
+
+.basket .actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.basket-img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.basket-card {
+  padding: 1rem;
+}
+
+:host ::ng-deep .basket-card .p-card {
+  min-height: 220px;
+}
+
+:host ::ng-deep .basket-card .p-card-title {
+  font-size: 1.4rem;
+}
+
+:host ::ng-deep .basket-card .p-card-subtitle {
+  font-size: 1.2rem;
+}
+.p-button-secondary{
+  border-radius: 3px;
+  //border: 0.5px solid black;
+  background-color: transparent;
+  color: #b7a27a;
+}
+
+.mb-1{
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.basket-img{
+  border-radius: 8px;
+  height: 100%;
+}
+
+.qua{
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #b7a27a;
+}

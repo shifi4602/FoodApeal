@@ -1,0 +1,79 @@
+<div class="container">
+    <section class="product-form" dir="rtl">
+        <div class="product-form-card">
+            <h1>{{addOrEditMessageSignal()}}</h1>
+            <p class="subtitle">מלא את הפרטים להוספת מוצר חדש</p>
+
+            <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+                <div class="form-field">
+                    <label for="productName">שם מוצר</label>
+                    <input id="productName" pInputText formControlName="productName" placeholder="הזן שם מוצר" />
+                    <div *ngIf="myForm.get('productName')?.invalid && myForm.get('productName')?.touched" class="error-message">
+                        שדה חובה
+                    </div>
+                </div>
+                
+                <div class="form-field">
+                    <label for="price">מחיר</label>
+                    <p-inputnumber id="price" formControlName="price" mode="currency" currency="ILS" locale="he-IL" 
+                        placeholder="הזן מחיר" styleClass="w-full" />
+                    <div *ngIf="myForm.get('price')?.invalid && myForm.get('price')?.touched" class="error-message">
+                        שדה חובה, מחיר חייב להיות חיובי
+                    </div>
+                </div>
+                
+                <div class="form-field">
+                    <label for="categoryId">קטגוריה</label>
+                    <p-dropdown id="categoryId" formControlName="categoryId" [options]="categories" 
+                        optionLabel="label" optionValue="value" placeholder="בחר קטגוריה" styleClass="w-full" />
+                    <div *ngIf="myForm.get('categoryId')?.invalid && myForm.get('categoryId')?.touched" class="error-message">
+                        שדה חובה
+                    </div>
+                </div>
+                
+                <div class="form-field">
+                    <label for="description">תיאור מוצר</label>
+                    <input id="description" pInputText formControlName="description" placeholder="הזן תיאור" />
+                    <div *ngIf="myForm.get('description')?.invalid && myForm.get('description')?.touched" class="error-message">
+                        שדה חובה
+                    </div>
+                </div>
+                
+                <div class="form-field">
+                    <label>תמונת מוצר</label>
+                    <div class="upload-zone" [class.has-image]="imagePreview">
+                        <ng-container *ngIf="!imagePreview; else previewBlock">
+                            <i class="pi pi-cloud-upload upload-icon"></i>
+                            <p class="upload-hint">גרור תמונה לכאן או</p>
+                            <p-fileUpload
+                                mode="basic"
+                                accept="image/*"
+                                [maxFileSize]="5000000"
+                                chooseLabel="בחר קובץ"
+                                chooseIcon="pi pi-folder-open"
+                                [auto]="false"
+                                (onSelect)="onFileSelect($event)"
+                                styleClass="upload-choose-btn" />
+                        </ng-container>
+                        <ng-template #previewBlock>
+                            <img [src]="imagePreview" alt="תצוגה מקדימה" class="preview-img" />
+                            <button type="button" class="change-img-btn" (click)="clearImage()">
+                                <i class="pi pi-sync"></i> החלף תמונה
+                            </button>
+                        </ng-template>
+                    </div>
+                    <div *ngIf="myForm.get('imgUrl')?.invalid && myForm.get('imgUrl')?.touched" class="error-message">
+                        שדה חובה
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+                
+                <div class="button-group">
+                    <button type="submit" class="primary-btn" [disabled]="myForm.invalid">שמור מוצר</button>
+                    <button type="button" class="secondary-btn" (click)="resetForm()">נקה טופס</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>

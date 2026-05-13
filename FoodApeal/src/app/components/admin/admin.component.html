@@ -1,0 +1,49 @@
+<div class="try">
+<div class="admin-container" dir="rtl">
+    <div class="admin-header">
+        <h1>פאנל ניהול</h1>
+        <div class="tab-buttons">
+            <button class="tab-btn" [class.active]="view === 'list'" (click)="view = 'list'">
+                ניהול מוצרים
+            </button>
+            <button class="tab-btn" [class.active]="view === 'add'" (click)="view = 'add'">
+                הוסף מוצר
+            </button>
+        </div>
+    </div>
+
+    <!-- Product List View -->
+    
+        <div *ngIf="view === 'list'" class="product-list">
+            <div *ngIf="products.length === 0" class="empty-state">טוען מוצרים...</div>
+            <table *ngIf="products.length > 0" class="products-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>שם מוצר</th>
+                        <th>קטגוריה</th>
+                        <th>מחיר</th>
+                        <th>פעולות</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let p of products">
+                        <td>{{ p.Products_id }}</td>
+                        <td>{{ p.Product_name }}</td>
+                        <td>{{ p.category_name }}</td>
+                        <td>₪{{ p.price }}</td>
+                        <td>
+                            <button class="edit-btn" (click)="editProduct(p.Products_id)">עריכה</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <!-- Add Product View -->
+        <div *ngIf="view === 'add'">
+            <app-product-form (saved)="onProductAdded()"></app-product-form>
+        </div>
+    </div>
+</div>

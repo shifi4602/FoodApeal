@@ -1,0 +1,34 @@
+<div class="try"></div>
+<div class="branches-page" dir="rtl">
+
+  <div class="page-header">
+    <img src="assets/images/media_07062023144314.png" alt="Food Appeal" class="header-image" />
+    <h1>הסניפים שלנו</h1>
+    <p class="subtitle">בחרו סניף ותתחילו לקנות</p>
+  </div>
+
+  <div class="branches-grid">
+    <div
+      class="branch-card"
+      *ngFor="let branch of branches"
+      (click)="goToBranch(branch)"
+      [class.active]="selectedBranch?.id === branch.id"
+    >
+      <div class="card-image-wrap">
+        <img [src]="branch.imgUrl" [alt]="branch.name" />
+      </div>
+      <div class="card-body">
+        <h3>{{ branch.name }}</h3>
+        <p class="address">📍 {{ branch.address }}, {{ branch.city }}</p>
+        <p *ngIf="branch.phone" class="detail">📞 {{ branch.phone }}</p>
+        <p *ngIf="branch.openingHours" class="detail">🕐 {{ branch.openingHours }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="map-section">
+    <h2 *ngIf="selectedBranch">{{ selectedBranch.name }}</h2>
+    <div id="branches-map"></div>
+  </div>
+
+</div>

@@ -1,0 +1,29 @@
+<div class="continer">
+    <p-card class="login-card">
+        <ng-template #title>
+            <div class="title">Login</div>
+        </ng-template>
+
+        <form (ngSubmit)="login()" class="fields">
+            <label for="email">Email</label>
+            <input pInputText type="email" id="email" [(ngModel)]="email" name="email"
+                placeholder="Enter your email" required />
+
+            <label for="password">Password</label>
+            <input pInputText type="password" id="password" [(ngModel)]="password" name="password"
+                placeholder="Enter your password" required />
+
+            <p *ngIf="errorMessage" style="color:red">{{ errorMessage }}</p>
+
+            <div class="actions">
+                <button pButton type="submit" label="Login" class="p-button-success"></button>
+                <a routerLink="/">
+                    <button pButton type="button" label="Back to Home" class="p-button-secondary"></button>
+                </a>
+                <a routerLink="/auth">
+                    <button pButton type="button" label="בחזרה למסך המשתמש" class="p-button-secondary"></button>
+                </a>
+            </div>
+        </form>
+    </p-card>
+</div>

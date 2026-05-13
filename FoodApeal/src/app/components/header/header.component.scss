@@ -1,0 +1,120 @@
+.all{
+  padding: 0;
+  margin: 0;
+}
+
+.header-container {
+    direction: rtl; 
+    font-family: sans-serif;
+    position: fixed;
+    background-color: white;
+    width: 100%;
+    z-index: 1000;
+    margin-top: 0;
+    padding-top: 0;
+  }
+  
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    direction: ltr;
+  }
+  
+  .icons-section i {
+    font-size: 1.5rem;
+    margin-left: 1.5rem;
+    cursor: pointer;
+  }
+  
+  .main-menu{
+    font-size: 22px;
+    text-align: center;
+    align-content: center;
+    align-items: center;
+  }
+
+  .pi{
+    font-size: 40px;
+  }
+
+  .p-input-icon-left{
+    display: flex;
+    align-items: center;
+    direction: rtl;
+    gap: 5px;
+  }
+
+  .p-menubar{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+    list-style: none;
+    padding: 0;
+  } 
+
+  .auth{
+    width: 140px;
+    height: 40px;
+    border-radius: 8px;
+    background-color: #b7a27a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    //font-weight: bold;
+    font-size: 1rem;
+    list-style: none;
+    text-decoration: none;
+  }
+  .user-name{
+    font-size: 1rem;
+    font-weight: 600;
+    color: #b7a27a;
+    min-height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+    border: #b7a27a 1px solid;
+    white-space: nowrap;
+  }
+
+  :host ::v-deep .main-menu {
+    .p-menubar {
+      justify-content: center;
+      border: none;
+      align-items: center;
+      background: transparent;
+      
+      .p-menuitem-link {
+        .p-menuitem-text {
+          font-weight: bold;
+          color: #333;
+        }
+      }
+    }
+}
+
+  .admin-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 14px;
+    min-height: 40px;
+    border-radius: 8px;
+    background-color: #b7a27a;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.2s;
+
+    &:hover {
+      background-color: #d96e10;
+    }
+  }

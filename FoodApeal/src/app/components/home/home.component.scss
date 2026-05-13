@@ -1,0 +1,83 @@
+// 
+
+.home {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.pots {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin-top: 0;
+}
+
+.allCategories {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.allCategories .sqrt {
+  width: calc(50% - 10px);
+  height: auto;
+  object-fit: cover;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+.two {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.two a {
+  width: 50%;
+  height: auto;
+}
+
+/* --- התאמה למסכי טאבלט (iPad) --- */
+@media (max-width: 1024px) {
+  .allCategories .sqrt {
+    width: calc(48% - 10px); 
+  }
+
+  .pots {
+    margin-top: 30vh;
+    width: 99%;
+  }
+
+  .two a{
+    width: 48%;
+  }
+}
+
+/* --- התאמה למסכי מובייל (iPhone) --- */
+@media (max-width: 480px) {
+  /* תמונות הקטגוריות - אחת בשורה */
+  .allCategories .sqrt {
+    width: 100%;
+  }
+
+  .pots {
+    margin-top: 18vh;
+  }
+
+  /* שתי התמונות למטה - אחת בשורה */
+  .two {
+    flex-direction: column;
+  }
+
+  .two a {
+    width: 100%;
+  }
+}

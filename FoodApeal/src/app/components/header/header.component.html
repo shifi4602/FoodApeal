@@ -1,0 +1,24 @@
+<div class="all">
+  <div class="header-container">
+    <div class="top-bar">
+      <div class="icons-section">
+        <i class="pi pi-heart" pBadge severity="secondary"></i>
+        <i class="pi pi-shopping-cart" pBadge severity="secondary" routerLink="/basket"></i>
+        <i class="pi pi-user" pBadge severity="secondary" routerLink="/auth"></i>
+      </div>
+
+      <div class="logo-section">
+        <a routerLink="/"><img src="../../../assets/images/foodApeal.png" alt="Food Appeal" height="60"></a>
+      </div>
+
+      <div class="search-section">
+        <span class="p-input-icon-left">
+          <div class="auth" routerLink="/auth">לחיבור / הרשמה</div>
+          <div class="user-name" *ngIf="currentUser() as user">שלום, {{ user.firstName }} {{ user.lastName }}</div>
+          <a *ngIf="currentUser()?.isAdmin" routerLink="/admin" class="admin-link">ניהול</a>
+        </span>
+      </div>
+    </div>
+    <p-menubar [model]="items" class="main-menu"></p-menubar>
+  </div>
+</div>

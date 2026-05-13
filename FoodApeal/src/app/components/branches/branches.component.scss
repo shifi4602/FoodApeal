@@ -1,0 +1,159 @@
+.try{
+  padding-top: 0;
+}
+
+// ── Page wrapper ────────────────────────────────────────────────
+.branches-page {
+  min-height: calc(100vh - 180px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2.5rem 1rem 3rem;
+  box-sizing: border-box;
+}
+
+// ── Page header card ─────────────────────────────────────────────
+.page-header {
+  width: min(100%, 480px);
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 2rem 1.5rem 1.6rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.header-image {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  margin: 0;
+  color: #2a2a2a;
+  font-size: 1.65rem;
+}
+
+.subtitle {
+  margin: 0.4rem 0 0;
+  color: #666;
+  font-size: 0.96rem;
+}
+
+// ── Branches grid ────────────────────────────────────────────────
+.branches-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 100%;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+// ── Individual branch card ────────────────────────────────────────
+.branch-card {
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid transparent;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.14);
+  }
+
+  &.active {
+    border-color: #e05a00;
+    box-shadow: 0 0 0 3px rgba(224, 90, 0, 0.15);
+    transform: translateY(-4px);
+  }
+}
+
+.card-image-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0 0.5rem;
+  background: #faf9f7;
+  border-bottom: 1px solid #f0ece4;
+
+  img {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+    border-radius: 12px;
+  }
+}
+
+.card-body {
+  padding: 1.1rem 1.25rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1;
+
+  h3 {
+    margin: 0 0 0.25rem;
+    font-size: 1.1rem;
+    color: #2a2a2a;
+    font-weight: 700;
+  }
+
+  .address {
+    margin: 0;
+    color: #444;
+    font-size: 0.9rem;
+  }
+
+  .detail {
+    margin: 0;
+    color: #686868;
+    font-size: 0.87rem;
+    line-height: 1.45;
+  }
+}
+
+// ── Responsive ────────────────────────────────────────────────────
+@media (max-width: 600px) {
+  .page-header {
+    padding: 1.4rem 1rem;
+    border-radius: 12px;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+}
+
+// ── Map section ──────────────────────────────────────────────────
+.map-section {
+  width: 100%;
+  max-width: 1100px;
+  margin-top: 2.5rem;
+  padding: 0 1rem;
+  box-sizing: border-box;
+
+  h2 {
+    text-align: center;
+    color: #2a2a2a;
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+
+  #branches-map {
+    width: 100%;
+    height: 480px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    // overflow:hidden breaks Leaflet tile rendering — use clip-path instead
+    clip-path: inset(0 round 16px);
+  }
+}

@@ -1,0 +1,147 @@
+// ── Card wrapper ─────────────────────────────────────────────
+.sidebar {
+  width: 15vw;
+  min-width: 200px;
+  background: #ffffff;
+  padding: 2rem 1.25rem;
+  direction: rtl;
+  font-family: Arial, sans-serif;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  box-sizing: border-box;
+}
+
+// ── Section title ─────────────────────────────────────────────
+.section-title h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #2a2a2a;
+  border-bottom: 2px solid #b7a27a;
+  padding-bottom: 0.4rem;
+}
+
+// ── Labels ────────────────────────────────────────────────────
+label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #333;
+  margin-bottom: 0.3rem;
+}
+
+// ── Price section ─────────────────────────────────────────────
+.price-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.price-range {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #b7a27a;
+}
+
+input[type="range"] {
+  width: 100%;
+  cursor: pointer;
+  accent-color: #b7a27a;
+}
+
+// ── Text inputs ───────────────────────────────────────────────
+.inputTxt {
+  width: 100%;
+  height: 38px;
+  padding: 0 0.5rem;
+  font-size: 0.85rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  &:focus {
+    outline: none;
+    border-color: #b7a27a;
+    box-shadow: 0 0 0 3px rgba(183, 162, 122, 0.18);
+  }
+}
+
+// ── Checkboxes ────────────────────────────────────────────────
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.4rem;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  color: #3a3a3a;
+  cursor: pointer;
+  transition: background 0.15s;
+
+  &:hover {
+    background: rgba(183, 162, 122, 0.08);
+  }
+
+  input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #b7a27a;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+}
+
+// ── Divider ───────────────────────────────────────────────────
+.divider {
+  width: 100%;
+  height: 1px;
+  background: #ececec;
+  margin: 0;
+}
+
+// ── Buttons ───────────────────────────────────────────────────
+.buttons {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 0.2rem;
+}
+
+.filter-btn {
+  flex: 1;
+  padding: 0.6rem 0.5rem;
+  border: 1px solid #b7a27a;
+  border-radius: 10px;
+  background-color: #b7a27a;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.85;
+  }
+}
+
+.clear-btn {
+  flex: 1;
+  padding: 0.6rem 0.5rem;
+  border: 1px solid #b7a27a;
+  border-radius: 10px;
+  background-color: transparent;
+  color: #b7a27a;
+  font-weight: 600;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.75;
+  }
+}

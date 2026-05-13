@@ -1,0 +1,25 @@
+.line{
+    width: 100%;
+}
+
+h2{
+    direction: rtl;
+    padding-top: 20px;
+}
+
+img{
+    width: 100%;
+    height: auto;
+}
+
+@media (max-width: 1024px) {
+    h2{
+        padding-top: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    h2{
+        padding-top: 20px;
+    }
+}   

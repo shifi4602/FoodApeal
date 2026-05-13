@@ -1,0 +1,57 @@
+<div class="try"></div>
+<div class="basket container mt-4">
+  <h3>Basket</h3>
+  <div *ngIf="items() && items().length; else empty">
+    <div class="row">
+      <div class="col-12" *ngFor="let item of items(); let i = index">
+        <p-card class="basket-card">
+          <ng-template pTemplate="content">
+            <div class="d-flex justify-content-between align-items-center">
+
+              <!-- טקסט וכפתורים -->
+              <div class="flex-grow-1">
+                <div class="mb-1">{{ item.Product_name }}
+                  <span *ngIf="!item.isAvailable" class="badge bg-danger ms-2" style="font-size:0.75rem;">לא זמין</span>
+                </div>
+                <div class="mb-1">{{ item.price }} ₪</div>
+                <div class="mb-2">{{ item.description }}</div>
+
+                <div class="d-flex align-items-center gap-2">
+                  <button pButton icon="pi pi-minus" (click)="decrease(item)" class="p-button-sm p-button-secondary" class="p-button-secondary">
+                  </button>
+
+                  <span class="qua">| {{ item.quantity }} |</span>
+
+                  <button pButton icon="pi pi-plus" (click)="increase(item)" class="p-button-sm p-button-success" class="p-button-secondary">
+                  </button>
+
+                  <button pButton label="הסר" (click)="remove(item)" class="p-button-danger p-button-sm" class="p-button-secondary">
+                  </button>
+                </div>
+              </div>
+
+              <!-- תמונה בצד ימין -->
+              <img [src]="imageSrc(item)" alt="{{ item.Product_name }}" width="100" height="100"
+                style="object-fit: cover; border-radius: 8px;" class="basket-img"/>
+
+            </div>
+          </ng-template>
+
+        </p-card>
+      </div>
+    </div>
+
+    <div class="mt-3">
+      <p>Total: ₪ {{ total() }}</p>
+      <button pButton type="button" label="נקה סל" (click)="clear()" class="p-button-secondary"></button>
+      <button pButton type="button" label="לתשלום" (click)="navigateToPayment()" class="p-button-success ms-2"></button>
+      <div *ngIf="checkoutError()" class="alert alert-danger mt-2" role="alert">
+        ⚠️ {{ checkoutError() }}
+      </div>
+    </div>
+  </div>
+
+  <ng-template #empty>
+    <p>Basket is empty.</p>
+  </ng-template>
+</div>
