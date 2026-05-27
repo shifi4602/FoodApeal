@@ -20,6 +20,10 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IRatingService, RatingService>();
 builder.Services.AddScoped<IRatingRepository, RatingRepository>();
+builder.Services.AddHttpClient("AiService", client =>
+{
+    client.BaseAddress = new Uri("http://localhost:8001/");
+});
 builder.Services.AddDbContext<ApiDBContext>
     (options => options.UseSqlServer(builder.Configuration.GetConnectionString("School")));
 // Add services to the container.

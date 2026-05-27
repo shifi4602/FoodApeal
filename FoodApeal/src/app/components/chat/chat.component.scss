@@ -1,0 +1,146 @@
+.chat-widget {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.chat-toggle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: none;
+  background-color: #b7a27a;
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #a08c64;
+  }
+}
+
+.chat-panel {
+  width: 340px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-header {
+  background-color: #b7a27a;
+  color: #fff;
+  padding: 12px 16px;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 12px;
+  overflow-y: auto;
+  max-height: 380px;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background-color: #faf8f5;
+}
+
+.empty-hint {
+  color: #aaa;
+  font-size: 13px;
+  text-align: center;
+  margin: auto;
+}
+
+.message {
+  max-width: 80%;
+  padding: 9px 13px;
+  border-radius: 16px;
+  font-size: 14px;
+  line-height: 1.45;
+  word-break: break-word;
+
+  &.user {
+    align-self: flex-end;
+    background-color: #b7a27a;
+    color: #fff;
+    border-bottom-right-radius: 4px;
+  }
+
+  &.assistant {
+    align-self: flex-start;
+    background-color: #ede9e0;
+    color: #333;
+    border-bottom-left-radius: 4px;
+  }
+
+  &.typing {
+    font-style: italic;
+    color: #999;
+    background-color: #ede9e0;
+  }
+}
+
+.chat-input-area {
+  display: flex;
+  gap: 8px;
+  padding: 10px 12px;
+  border-top: 1px solid #e8e3d8;
+  background-color: #fff;
+
+  input {
+    flex: 1;
+    border: 1px solid #d4cabc;
+    border-radius: 20px;
+    padding: 8px 14px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+
+    &:focus {
+      border-color: #b7a27a;
+    }
+
+    &:disabled {
+      background-color: #f5f5f5;
+    }
+  }
+}
+
+.send-btn {
+  background-color: #b7a27a;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover:not(:disabled) {
+    background-color: #a08c64;
+  }
+
+  &:disabled {
+    background-color: #d4cabc;
+    cursor: not-allowed;
+  }
+}

@@ -1,0 +1,52 @@
+<div class="chat-widget">
+  <button class="chat-toggle" (click)="toggleChat()" [attr.aria-label]="isOpen ? 'Close chat' : 'Open chat'">
+    @if (isOpen) {
+      <span>✕</span>
+    } @else {
+      <span>💬</span>
+    }
+  </button>
+
+  @if (isOpen) {
+    <div class="chat-panel">
+      <div class="chat-header">
+        <span>AI Assistant</span>
+      </div>
+
+      <div class="chat-messages" #messagesContainer>
+        @for (msg of messages; track $index) {
+          <div class="message" [class.user]="msg.role === 'user'" [class.assistant]="msg.role === 'assistant'">
+            {{ msg.content }}
+          </div>
+        }
+        @if (isLoading) {
+          <div class="message assistant typing">typing...</div>
+        }
+        @if (messages.length === 0 && !isLoading) {
+          <p class="empty-hint">Ask me anything about our products!</p>
+        }
+      </div>
+
+      <div class="chat-input-area">
+        <input
+          type="text"
+          [(ngModel)]="inputMessage"
+          (keydown)="onKeyDown($event)"
+          placeholder="Type a message..."
+          [disabled]="isLoading"
+          autocomplete="off"
+        />
+        <button
+          class="send-btn"
+          (click)="sendMessage()"
+          [disabled]="isLoading || !inputMessage.trim()"
+          aria-label="Send message"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  }
+</div>
