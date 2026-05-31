@@ -20,8 +20,7 @@ namespace WebApiShop.Middleware
             Rating rating = new Rating();
             rating.Host = httpContext.Request.Host.Value;
             rating.Method = httpContext.Request.Method;
-            var fullPath = httpContext.Request.Path.Value ?? string.Empty;
-            rating.Path = fullPath.Length > 50 ? fullPath[..50] : fullPath;
+            rating.Path = httpContext.Request.Path;
             rating.Referer = httpContext.Request.Headers.Referer;
             rating.UserAgent = httpContext.Request.Headers.UserAgent;
             rating.RecordDate = DateTime.Now;
