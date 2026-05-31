@@ -1,4 +1,8 @@
-import { Component, effect, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, effect, inject, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Subject, of } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { SearchService, SearchResult } from '../../service/search.service';
 import { ProductsService } from '../../service/products.service';
 import { CardModule } from 'primeng/card';
 import { ButtonModule, } from 'primeng/button';
@@ -30,6 +34,8 @@ export class ProductsComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private categoryService = inject(CategoryService);
   private userService = inject(UserService);
+  private searchService = inject(SearchService);
+  private destroyRef = inject(DestroyRef);
   addOrEditVal: addOrEdit = 0;
 
   currentUser = this.userService.getCurrentUser();
@@ -39,6 +45,12 @@ export class ProductsComponent implements OnInit {
   private activeFilter: any = null;
   urlCategories: string[] = [];  // category names for FilterComponent checkboxes
   private urlCategoryIds: number[] = [];  // category IDs for filtering
+
+  // Semantic search state
+  private searchSubject = new Subject<string>();
+  searchResults: SearchResult[] = [];
+  isSearchMode = false;
+  isSearchLoading = false;
 
   private categoriesSignal = this.categoryService.getCategories();
 
@@ -69,6 +81,30 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Semantic search pipeline: debounce keystrokes, cancel in-flight requests, call API
+    this.searchSubject.pipe(
+      debounceTime(400),
+      distinctUntilChanged(),
+      switchMap(query => {
+        if (!query.trim()) {
+          this.isSearchMode = false;
+          this.searchResults = [];
+          return of([]);
+        }
+        this.isSearchLoading = true;
+        return this.searchService.search(query);
+      }),
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe({
+      next: results => {
+        this.searchResults = results;
+        this.isSearchLoading = false;
+      },
+      error: () => {
+        this.isSearchLoading = false;
+      }
+    });
+
     this.route.queryParams.subscribe(params => {
       const categoryIdParam = params['categoryId'];
       if (categoryIdParam) {
@@ -185,5 +221,29 @@ export class ProductsComponent implements OnInit {
     this.router.navigate(['/products-page', product.Products_id], {
       state: { product }
     });
+  }
+
+  onSearchInput(query: string) {
+    if (!query.trim()) {
+      // Immediately restore normal view so the user isn't left staring at stale results
+      this.isSearchMode = false;
+      this.searchResults = [];
+    } else {
+      this.isSearchMode = true;
+    }
+    this.searchSubject.next(query);
+  }
+
+  addSearchResultToBasket(result: SearchResult) {
+    const product: Product = {
+      Products_id: result.id,
+      Product_name: result.name,
+      price: result.price,
+      imageUrl: result.imageUrl ?? '',
+      description: result.description ?? '',
+      category_Id: 0,
+      isAvailable: true,
+    };
+    this.basketService.addProductTBasket(product);
   }
 }

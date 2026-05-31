@@ -29,10 +29,15 @@
   }
   
   .main-menu{
-    font-size: 22px;
+    font-size: 15px;
     text-align: center;
     align-content: center;
     align-items: center;
+
+    :host ::ng-deep .p-menubar-root-list {
+      flex-wrap: nowrap;
+      white-space: nowrap;
+    }
   }
 
   .pi{
@@ -90,6 +95,11 @@
       align-items: center;
       background: transparent;
       
+      .p-menubar-root-list {
+        flex-wrap: nowrap;
+        white-space: nowrap;
+      }
+
       .p-menuitem-link {
         .p-menuitem-text {
           font-weight: bold;

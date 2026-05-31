@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Text;
+using Services;
 using System.Text.Json;
 
 namespace WebApiShop.Controllers
@@ -8,26 +8,21 @@ namespace WebApiShop.Controllers
     [ApiController]
     public class ChatController : ControllerBase
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IChatService _chatService;
 
-        public ChatController(IHttpClientFactory httpClientFactory)
+        public ChatController(IChatService chatService)
         {
-            _httpClientFactory = httpClientFactory;
+            _chatService = chatService;
         }
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] JsonElement body)
         {
-            var client = _httpClientFactory.CreateClient("AiService");
+            var message = body.GetProperty("message").GetString() ?? string.Empty;
+            var history = body.GetProperty("history");
 
-            var json = body.GetRawText();
-            using var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            var response = await client.PostAsync("chat", content);
-
-            var responseBody = await response.Content.ReadAsStringAsync();
-
-            return StatusCode((int)response.StatusCode, JsonSerializer.Deserialize<JsonElement>(responseBody));
+            var result = await _chatService.ChatAsync(message, history);
+            return Ok(result);
         }
     }
 }

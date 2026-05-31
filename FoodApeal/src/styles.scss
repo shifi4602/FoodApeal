@@ -39,3 +39,9 @@
 	box-shadow: none !important;
 }
 
+/* Force menubar items to stay on one line */
+.p-menubar .p-menubar-root-list {
+  flex-wrap: nowrap !important;
+  white-space: nowrap !important;
+}
+

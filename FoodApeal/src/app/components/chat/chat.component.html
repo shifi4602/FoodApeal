@@ -10,7 +10,10 @@
   @if (isOpen) {
     <div class="chat-panel">
       <div class="chat-header">
-        <span>AI Assistant</span>
+        <span>עוזרת קניות AI</span>
+        @if (messages.length > 0) {
+          <button class="clear-btn" (click)="clearChat()" title="נקה שיחה">🗑</button>
+        }
       </div>
 
       <div class="chat-messages" #messagesContainer>
@@ -18,13 +21,25 @@
           <div class="message" [class.user]="msg.role === 'user'" [class.assistant]="msg.role === 'assistant'">
             {{ msg.content }}
           </div>
+          @if (msg.role === 'assistant' && msg.products?.length) {
+            <div class="product-suggestions">
+              @for (p of msg.products!; track p.id) {
+                <a class="product-card" [routerLink]="['/products-page', p.id]">
+                  <img [src]="p.imageUrl || ''" [alt]="p.name" (error)="onImgError($event)">
+                  <div class="product-card-name">{{ p.name }}</div>
+                  <div class="product-card-price">₪{{ p.price }}</div>
+                </a>
+              }
+            </div>
+          }
         }
         @if (isLoading) {
-          <div class="message assistant typing">typing...</div>
+          <div class="message assistant typing">כותבת...</div>
         }
         @if (messages.length === 0 && !isLoading) {
-          <p class="empty-hint">Ask me anything about our products!</p>
+          <p class="empty-hint">שאל/י אותי כל שאלה על המוצרים שלנו!</p>
         }
+        <div #scrollAnchor></div>
       </div>
 
       <div class="chat-input-area">
@@ -32,7 +47,7 @@
           type="text"
           [(ngModel)]="inputMessage"
           (keydown)="onKeyDown($event)"
-          placeholder="Type a message..."
+          placeholder="כתוב/י הודעה..."
           [disabled]="isLoading"
           autocomplete="off"
         />

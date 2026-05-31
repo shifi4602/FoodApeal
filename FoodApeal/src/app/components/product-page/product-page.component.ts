@@ -36,7 +36,12 @@ export class ProductPageComponent {
     this.product = this.productsService.getProducts()()
       .find(p => p.Products_id === id);
 
-    console.log(this.product);
+    // Products signal may still be loading — fetch directly from API as fallback
+    if (!this.product) {
+      this.productsService.fetchProductById(id).subscribe(p => {
+        this.product = p;
+      });
+    }
   }
 
   addToBasket(id: number) {

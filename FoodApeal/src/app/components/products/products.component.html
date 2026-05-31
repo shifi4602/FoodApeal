@@ -1,39 +1,99 @@
-<div class="continer">
-    <div class="filter">
-        <div class="filter">
-            <app-filter (filterChanged)="onFilterChanged($event)" [initialCategories]="urlCategories"></app-filter>
-        </div>
+<!-- Semantic Search Bar -->
+<div class="semantic-search-container">
+    <div class="semantic-search-bar">
+        <span class="search-icon">🔍</span>
+        <input
+            type="text"
+            class="semantic-search-input"
+            placeholder="חיפוש חכם... לדוגמה: בישול בכמויות גדולות"
+            dir="rtl"
+            (input)="onSearchInput($any($event.target).value)"
+        />
     </div>
-    <div class="container mt-4">
-        <div class="row g-4">
-            @for (product of filteredProducts; track product.Products_id){
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 d-flex">
-                <p-card class="product-grid-card" (click)="goToProduct(product)">
-                    <ng-template pTemplate="header">
-                        <a [routerLink]="['/products-page', product.Products_id]" [state]="{ product: product }">
-                            <img [src]="getImageUrl(product)"
-                                 (error)="onImageError($event)"
-                                 class="card-img-top" [alt]="product.Product_name">
-                        </a>
-                    </ng-template>
-                    <div class="id">{{ product.Products_id }}</div>
-                    <ng-template pTemplate="title">{{ product.Product_name }}</ng-template>
-                    <ng-template pTemplate="subtitle"> ₪ {{ product.price }} </ng-template>
-                    <ng-template pTemplate="footer">
-                        <div class="d-flex gap-2 mt-1 m-2">
-                            <a [routerLink]="['/basket']" class="flex-fill">
-                                <p-button label="הוספה לסל" severity="secondary" [outlined]="true"
-                                    styleClass="w-full" (onClick)="addToBasket(product)"/>
-                            </a>
-                            <!-- <a *ngIf="currentUser()?.isAdmin" [routerLink]="['/product-edit', product.Products_id]" class="flex-fill" (click)="$event.stopPropagation()">
-                                <p-button label="עריכה" severity="warn" [outlined]="true" styleClass="w-full"/>
-                            </a> -->
-                        </div>
-                    </ng-template>
-                </p-card>
-            </div>
-            }
-        </div>
-    </div>
+    @if (isSearchMode) {
+        <p class="search-hint">תוצאות מבוססות הבנת משמעות — לא רק מילות מפתח</p>
+    }
 </div>
+
+@if (isSearchMode) {
+    <!-- Semantic Search Results -->
+    <div class="container mt-3">
+        @if (isSearchLoading) {
+            <div class="search-loading">
+                <div class="spinner-border text-primary" role="status"></div>
+                <p class="mt-2">מחפש תוצאות רלוונטיות...</p>
+            </div>
+        } @else if (searchResults.length === 0) {
+            <p class="text-center text-muted mt-4">לא נמצאו תוצאות רלוונטיות לחיפוש זה</p>
+        } @else {
+            <div class="row g-4">
+                @for (result of searchResults; track result.id) {
+                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 d-flex">
+                    <p-card class="product-grid-card search-result-card">
+                        <ng-template pTemplate="header">
+                            <a [routerLink]="['/products-page', result.id]">
+                                <img [src]="result.imageUrl || 'assets/no-image.svg'"
+                                     (error)="onImageError($event)"
+                                     class="card-img-top" [alt]="result.name">
+                            </a>
+                        </ng-template>
+                        <ng-template pTemplate="title">{{ result.name }}</ng-template>
+                        <ng-template pTemplate="subtitle">₪ {{ result.price }}</ng-template>
+                        <ng-template pTemplate="content">
+                            <span class="match-score-badge">
+                                Match Score: {{ (result.score * 100).toFixed(1) }}%
+                            </span>
+                        </ng-template>
+                        <ng-template pTemplate="footer">
+                            <div class="d-flex gap-2 mt-1 m-2">
+                                <a [routerLink]="['/basket']" class="flex-fill">
+                                    <p-button label="הוספה לסל" severity="secondary" [outlined]="true"
+                                        styleClass="w-full" (onClick)="addSearchResultToBasket(result)"/>
+                                </a>
+                            </div>
+                        </ng-template>
+                    </p-card>
+                </div>
+                }
+            </div>
+        }
+    </div>
+} @else {
+    <!-- Normal Filter + Products Grid -->
+    <div class="continer">
+        <div class="filter">
+            <div class="filter">
+                <app-filter (filterChanged)="onFilterChanged($event)" [initialCategories]="urlCategories"></app-filter>
+            </div>
+        </div>
+        <div class="container mt-4">
+            <div class="row g-4">
+                @for (product of filteredProducts; track product.Products_id){
+                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 d-flex">
+                    <p-card class="product-grid-card" (click)="goToProduct(product)">
+                        <ng-template pTemplate="header">
+                            <a [routerLink]="['/products-page', product.Products_id]" [state]="{ product: product }">
+                                <img [src]="getImageUrl(product)"
+                                     (error)="onImageError($event)"
+                                     class="card-img-top" [alt]="product.Product_name">
+                            </a>
+                        </ng-template>
+                        <div class="id">{{ product.Products_id }}</div>
+                        <ng-template pTemplate="title">{{ product.Product_name }}</ng-template>
+                        <ng-template pTemplate="subtitle"> ₪ {{ product.price }} </ng-template>
+                        <ng-template pTemplate="footer">
+                            <div class="d-flex gap-2 mt-1 m-2">
+                                <a [routerLink]="['/basket']" class="flex-fill">
+                                    <p-button label="הוספה לסל" severity="secondary" [outlined]="true"
+                                        styleClass="w-full" (onClick)="addToBasket(product)"/>
+                                </a>
+                            </div>
+                        </ng-template>
+                    </p-card>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+}
 <!-- <app-product-form [addOrEditVal]="addOrEditVal"></app-product-form> -->
